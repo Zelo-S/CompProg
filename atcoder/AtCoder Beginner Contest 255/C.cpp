@@ -7,23 +7,29 @@ typedef long double ld;
 void solve(){
     // change to ll later
     ll X,A,D,N; cin>>X>>A>>D>>N;
-    X -= A;
+    
+    X-=A; // normalize
+    ll low = 0;
+    ll high = D * (N-1);
+    if(high < low) swap(low, high);
+    
     if(D == 0){
-        cout<<abs( X )<<endl;
+        cout<<abs(X)<<endl; return;
     }
-    
-    ll factor_up = ceil( (ld)X / D ) * D;
-    ll factor_down = floor( (ld)X / D ) * D;
-    
-    
-    ll ans = 0;
-    if(factor_down < 0 || factor_up < 0){
-        ans = min(0 - factor_down, 0-factor_up);
+
+    if(X < low){
+        cout<<abs(X - low)<<endl;
+        return;
+    }else if(X > high){
+        cout<<abs(X - high)<<endl;
+        return;
     }else{
-        ans = min(factor_up - )
+        ll low_bound = floor((ld)X/D) * D;
+        ll up_bound = ceil((ld)X/D) * D;
+        
+        cout<<min(abs(X - low_bound), abs(X-up_bound))<<endl;
+        return;
     }
-    
-    cout<<factor_up<<" "<<factor_down<<endl;
 
 }
 
