@@ -1,18 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define MAX 2e5
+
 void solve(){
-    
-    map<int, int> factor_pairs;
-    int k=17;
-    for(int i=1; i*i<=k; ++i){
-        if(k % i == 0){
-            ++factor_pairs[i];
-            if(i != k / i) ++factor_pairs[k / i];
+    unordered_map<int, int> primes;
+    for(int i=2; i<=MAX; ++i){
+        bool valid = true;
+        for(int e=2; e*e<=i; ++e){
+            if(i % e == 0) { valid = false; break; }
         }
+        if(valid) ++primes[i];
     }
-    
-    for(auto [a,b] : factor_pairs) cout<<a<<" "<<b<<"\n";
+
+    cout<<primes.size()<<endl;
 
 }
 
