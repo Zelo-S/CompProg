@@ -11,21 +11,20 @@ void solve(){
             arr[i] = c - '0';
         }
         
-        int last0Pos = N-1, last1Pos = N-1;
+        int lm_1 = 0, rm_0 = N;
+        for(lm_1 = 0; lm_1<N; ++lm_1) if(arr[lm_1] == 1) break;
+        for(rm_0 = N-1; rm_0>=0; --rm_0) if(arr[rm_0] == 0) break;
         
-        while(last0Pos >= 0 && last1Pos >= 0){
-            if(arr[last0Pos] != 0) --last0Pos;
-            if(arr[last1Pos] != 1) --last1Pos;
-            
-            if(arr[last0Pos] == 0 && arr[last1Pos] == 1 && last0Pos >= last1Pos){
-                arr[last1Pos] = -1;
-            }
-            --last1Pos;
+        if(lm_1 < rm_0) {
+            for(int rmv1=lm_1+1; rmv1<rm_0; ++rmv1) if(arr[rmv1] == 1) arr[rmv1] = -1; // delete all 1's between (lm_1, rm_0]
+            for(int rmv0=rm_0-1; rmv0>lm_1; --rmv0) if(arr[rmv0] == 0) arr[rmv0] = -1; // delete all 0's between [lm_1, rm_0)
+
+
+            for(int rmv1=lm_1; rmv1<rm_0; ++rmv1) if(arr[rmv1] == 1) arr[rmv1] = -1; // delete all 1's between [lm_1, rm_0]
         }
+
+        for(auto f : arr) if(f != -1) cout<<f; cout<<endl;
         
-        vector<int> res;
-        for(auto f : arr) if(f != -1) res.push_back(f);
-        for(auto f : res) cout<<f<<" "; cout<<endl;
     }
 }
 
