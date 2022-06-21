@@ -19,7 +19,7 @@ void solve(){
             for(int rmv1=lm_1+1; rmv1<rm_0; ++rmv1) if(arr[rmv1] == 1) arr[rmv1] = -1; // delete all 1's between (lm_1, rm_0]
             for(int rmv0=rm_0-1; rmv0>lm_1; --rmv0) if(arr[rmv0] == 0) arr[rmv0] = -1; // delete all 0's between [lm_1, rm_0)
 
-
+    
             for(int rmv1=lm_1; rmv1<rm_0; ++rmv1) if(arr[rmv1] == 1) arr[rmv1] = -1; // delete all 1's between [lm_1, rm_0]
         }
 
