@@ -4,7 +4,9 @@ using namespace std;
     
 int main(){
      
-    cout<<'W'-'A';
+    bool a = false;
+    a = !a;
+    cout<<a<<endl;
      
     return 0;
 }
