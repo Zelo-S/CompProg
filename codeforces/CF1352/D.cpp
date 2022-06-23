@@ -7,45 +7,34 @@ void solve(){
         int N; cin>>N;
         vector<int> arr(N);
         for(auto& f : arr) cin>>f;
-        vector<int> taken(N);
         
-        /*
-        vector<int> prefix(N+1), suffix(N+1);
-        for(int i=1; i<=N; ++i) prefix[i] = prefix[i-1] + arr[i-1];
-        for(int i=N-1; i>=0; --i) suffix[i] = suffix[i+1] + arr[i];
-        */
-        
-        int A_ptr = 0, B_ptr = N-1;
-        int A_count = 0, B_count = 0;
-        int move_count = 0;
-        
-        bool isATurn = true;
+        int Aans = 0, Bans = 0;
+        int aptr = 0, bptr = N-1;
+        int aprevct = 0, bprevct = 0;
+        int count = 0;
 
-        int AprevAdd = 0, BprevAdd = 0;
-        while(A_ptr < B_ptr){
-            if(isATurn){
-                AprevAdd = 0;
-                while(AprevAdd <= BprevAdd && !taken[A_ptr]) {
-                    AprevAdd += arr[A_ptr];
-                    taken[A_ptr] = 1;
-                    ++A_ptr;
+        while(aptr <= bptr){
+            if(count % 2 == 0){
+                int acurrct = 0;
+                while(aptr <= bptr && acurrct <= bprevct){
+                    acurrct += arr[aptr++];
                 }
-                A_count += AprevAdd;
+                Aans += acurrct;
+                aprevct = acurrct;
             }else{
-                BprevAdd = 0;
-                while(BprevAdd <= AprevAdd && !taken[B_ptr]) {
-                    BprevAdd += arr[B_ptr];
-                    taken[B_ptr] = 1;
-                    --B_ptr;
+                int bcurrct = 0;
+                while(aptr <= bptr && bcurrct <= aprevct){
+                    bcurrct += arr[bptr--];
                 }
-                B_count += BprevAdd;
+                Bans += bcurrct;
+                bprevct = bcurrct;
             }
-            
-            ++move_count;
-            isATurn = !isATurn;
+            ++count;
         }
         
-        cout<<move_count<<" "<<A_count<<" "<<B_count<<endl;
+        cout<<count<<" "<<Aans<<" "<<Bans<<endl;
+
+        
     }
 }
 

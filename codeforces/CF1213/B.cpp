@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define INF 0x3f3f3f3f
+
 void solve(){
     int T; cin>>T;
     while(T--){
@@ -8,17 +10,13 @@ void solve(){
         vector<int> arr(N);
         for(auto& f : arr) cin>>f;
         
-        int badCounter = 0;
-        int max_running = arr[N-1];
-        
+        int currMIN = INF;
+        int goodCounter = 0;
         for(int i=N-1; i>=0; --i){
-            if(arr[i] > max_running){
-                ++badCounter;
-                max_running = arr[i];
-            }
+            if(arr[i] <= currMIN) { ++goodCounter; currMIN = arr[i]; }
         }
         
-        cout<<badCounter<<endl;
+        cout<<N - goodCounter<<endl;
     }
 }
 
