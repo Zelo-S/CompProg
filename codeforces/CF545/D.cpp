@@ -6,20 +6,21 @@ typedef long long LL;
 void solve(){
     LL N; cin>>N;
     vector<LL> arr(N);
-    for(auto& f : arr) cin>>f;
     
+    for(auto& f : arr) cin>>f;
     sort(arr.begin(), arr.end());
     
-    vector<LL> prefix(N+1);
-    for(LL i=1; i<=N; ++i) prefix[i] = prefix[i-1] + arr[i-1];
-    
-    LL non_disappoint = 0;
+    LL disappoints = 0, timesum = 0;
     for(LL i=0; i<N; ++i){
-        if(arr[i] >= prefix[i]) ++non_disappoint;
+        if(arr[i] < timesum){ // "push to end"
+            ++disappoints;
+            continue;
+        }
+        else timesum += arr[i];
     }
     
-    cout<<non_disappoint<<endl;
-
+    cout<<N-disappoints<<endl;
+    
 }
 
 int main(){
