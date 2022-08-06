@@ -1,44 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Range{
-    int leftmost, rightmost;
+typedef long long LL;
+
+struct Count{
+    char c;
+    LL count;
 };
 
-const string abc = "abcdefghijklmnopqrstuvwxyz";
+vector<Count> reduce(string s){
+    LL len = s.size();
+    
+    vector<Count> res;
+    res.push_back({s[0], 1});
+    for(LL i=1; i<len; ++i){
+        if(s[i-1] == s[i]) res[res.size()-1].count++;
+        else res.push_back({s[i], 1});
+    }
+    
+    return res;
+}
 
 void solve(){
     string S,T; cin>>S>>T;
-    map<char, Range> S_ranges;
     
-    for(int i=0; i<S.size(); ++i) S_ranges[S[i]].rightmost = i;
-    for(int i=S.size()-1; i>=0; --i) S_ranges[S[i]].leftmost = i;
+    vector<Count> Sres = reduce(S);
+    vector<Count> Tres = reduce(T);
 
-    map<char, Range> T_ranges;
+    // for(auto f : Sres) cout<<f.c<<" "<<f.count<<endl;
+    // for(auto f : Tres) cout<<f.c<<" "<<f.count<<endl;
     
-    for(int i=0; i<T.size(); ++i) T_ranges[T[i]].rightmost = i;
-    for(int i=T.size()-1; i>=0; --i) T_ranges[T[i]].leftmost = i;
-    
-    for(auto [chr, rng] : S_ranges){
-        
+    if(Sres.size() != Tres.size()){
+        cout<<"No\n"; return;
     }
-
-    bool valid = true;
-    for(int ec=0; ec<26; ++ec){
-        char active = abc[ec];
-        
-        map<char, int> s_count;
-        for(int i=S_ranges[active].leftmost; i<=S_ranges[active].rightmost; ++i) ++s_count[S[i]];
-
-        map<char, int> t_count;
-        for(int i=T_ranges[active].leftmost; i<=T_ranges[active].rightmost; ++i) ++t_count[T[i]];
-        
-        for(auto [chr, cnt] : s_count){
-            if(cnt > t_count[chr]) {
-                valid = false;
-                cout<<"No\n";
-                return;
-            }
+    
+    for(LL i=0; i<(LL)Sres.size(); ++i){
+        if(Sres[i].count > Tres[i].count) {
+            cout<<"No\n"; return;
+        }if(Sres[i].count == 1 && Tres[i].count > 1){
+            cout<<"No\n"; return;
         }
     }
     
