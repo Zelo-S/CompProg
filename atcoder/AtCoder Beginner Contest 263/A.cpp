@@ -17,9 +17,9 @@ void solve(){
         else cout<<"No\n";
     }
     else{
-        cout<<"No\n";
+        cout<<"No"<<endl;
     }
-
+    
 }
 
 int main(){

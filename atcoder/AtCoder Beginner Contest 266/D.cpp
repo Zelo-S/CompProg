@@ -1,11 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+void solve(){
     
+    
+}
+
 int main(){
-    // 3 4 5
-    
-    // ArrayList<GenericType>
-      
-     
+    solve();
     return 0;
 }
